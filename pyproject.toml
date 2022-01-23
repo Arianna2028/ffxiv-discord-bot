@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "discord-bot"
+version = "0.1.0"
+description = ""
+authors = ["Ari Tang <arianna2028@outlook.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+discord = "^1.7.3"
+"discord.py" = "^1.7.3"
+python-dotenv = "^0.19.2"
+pydantic = "^1.9.0"
+requests = "^2.27.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
