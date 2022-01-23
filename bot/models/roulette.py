@@ -1,9 +1,11 @@
 from enum import Enum
 from functools import cached_property
 from typing import List
+
 from pydantic import BaseModel
 
 from .xivapi import Character, Job, JobType
+
 
 class RouletteType(str, Enum):
     LEVELING = "leveling"

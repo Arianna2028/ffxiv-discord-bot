@@ -1,9 +1,10 @@
-from typing import List, Optional
+import random
 import unicodedata
 from enum import Enum
-import random
+from typing import List, Optional
 
 from pydantic import BaseModel, Field
+
 
 class CharacterSearch(BaseModel):
     lodestone_id: int = Field(alias="ID")
@@ -26,6 +27,7 @@ class CharacterSearch(BaseModel):
     @property
     def data_center(self):
         return self.server.replace("(", "").replace(")", "").split(" ")[1]
+
 
 class UnlockedState(BaseModel):
     job_id: Optional[int] = Field(alias="ID")
@@ -81,7 +83,7 @@ job_to_type = {
     "Culinarian": JobType.CRAFTER,
     "Miner": JobType.GATHERER,
     "Botanist": JobType.GATHERER,
-    "Fisher": JobType.GATHERER
+    "Fisher": JobType.GATHERER,
 }
 
 job_to_short_name = {
@@ -124,9 +126,8 @@ job_to_short_name = {
     "Culinarian": "CUL",
     "Miner": "MIN",
     "Botanist": "BOT",
-    "Fisher": "FSH"
+    "Fisher": "FSH",
 }
-
 
 
 class Job(BaseModel):
@@ -176,7 +177,12 @@ class Character(BaseModel):
     def gathering_jobs(self) -> List[Job]:
         return self._jobs_of_type(JobType.GATHERER)
 
-    def get_random_job(self, job_type: Optional[JobType] = None, min_level: Optional[int] = None, max_level: Optional[int] = None) -> Optional[Job]:
+    def get_random_job(
+        self,
+        job_type: Optional[JobType] = None,
+        min_level: Optional[int] = None,
+        max_level: Optional[int] = None,
+    ) -> Optional[Job]:
         matching_jobs = self._jobs_of_type(job_type) if job_type else self.jobs
 
         if min_level:

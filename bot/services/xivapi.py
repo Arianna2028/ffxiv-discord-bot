@@ -1,14 +1,16 @@
-from typing import Optional
-from bot.models.xivapi import CharacterSearch, Character
-import requests
 from copy import deepcopy
+from typing import Optional
+
+import requests
+
+from bot.models.xivapi import Character, CharacterSearch
+
 
 class XIVAPIService:
     BASE_URL = "https://xivapi.com"
 
     def __init__(self, api_key: str):
         self._api_key = api_key
-
 
     def get(self, path: str, params: Optional[dict] = None) -> requests.Response:
         updated_params = deepcopy(params) if params else {}

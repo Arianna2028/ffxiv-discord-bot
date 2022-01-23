@@ -1,8 +1,9 @@
-from typing import List
-from bot.models.roulette import Roulette, RouletteSelection
-from bot.models.xivapi import Character, JobType
 import random
+from typing import List
+
 from bot.constants import MAX_LEVEL
+from bot.models.roulette import Roulette, RouletteSelection
+from bot.models.xivapi import Character
 
 
 def random_by_role(roulette: Roulette, characters: List[Character]) -> List[RouletteSelection]:
@@ -19,7 +20,9 @@ def random_by_role(roulette: Roulette, characters: List[Character]) -> List[Roul
             break
 
         char = unselected_characters.pop()
-        if job := char.get_random_job(needed_job_type, min_level=roulette.min_job_level, max_level=max_level):
+        if job := char.get_random_job(
+            needed_job_type, min_level=roulette.min_job_level, max_level=max_level
+        ):
             selections.append(RouletteSelection(job=job, character=char))
         else:
             # Put the unmatched person back at the front of the list
