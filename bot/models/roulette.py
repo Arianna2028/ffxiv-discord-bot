@@ -13,6 +13,7 @@ class RouletteType(str, Enum):
     ALLIANCE_RAID = "alliance_raid"
     NORMAL_RAID = "normal_raid"
     TRIAL = "trial"
+    ZEROS = "zeros"  # 50s/60s/70s/80s
 
 
 class Roulette(BaseModel):
