@@ -62,6 +62,6 @@ async def on_message(message):
         await message.channel.send(embed=response)
 
 
-if __name__ == "__main__":
-    print("Running!")
-    client.run(TOKEN)
+# if __name__ == "__main__":
+print("Running!")
+client.run(TOKEN)
