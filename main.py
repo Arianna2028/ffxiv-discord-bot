@@ -63,4 +63,5 @@ async def on_message(message):
 
 
 if __name__ == "__main__":
+    print("Running!")
     client.run(TOKEN)
