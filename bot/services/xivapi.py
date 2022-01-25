@@ -1,3 +1,4 @@
+import logging
 from copy import deepcopy
 from datetime import datetime, timedelta
 from typing import List, Optional
@@ -7,6 +8,8 @@ from cachetools import LRUCache, TTLCache, cached
 
 from bot.constants import RELEVANT_WORLDS
 from bot.models.xivapi import Character, CharacterSearch
+
+logger = logging.getLogger(__name__)
 
 
 class XIVAPIService:
@@ -27,8 +30,13 @@ class XIVAPIService:
         """
         worlds = worlds or RELEVANT_WORLDS
         response = self.get("character/search", params={"name": name})
+        response_json = response.json()
+        if not (results := response_json.get("Results")):
+            logger.error(f"No results found for {name}. Response: {response_json}")
+            return
+
         characters = []
-        for character in response.json()["Results"]:
+        for character in results:
             characters.append(CharacterSearch.parse_obj(character))
 
         try:
