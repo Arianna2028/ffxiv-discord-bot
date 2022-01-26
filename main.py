@@ -65,3 +65,11 @@ async def on_message(message):
 logging.basicConfig(encoding="utf-8", level=logging.DEBUG)
 logger.info("Starting bot...")
 client.run(TOKEN)
+
+if __name__ == "__main__":
+    print("Would execute in main")
+    for name in ["discord"]:
+        logger = logging.getLogger(name)
+        # logger.handlers.clear()
+        # logger.propagate = False
+        logger.setLevel(logging.INFO)
