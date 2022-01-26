@@ -62,14 +62,11 @@ async def on_message(message):
         await message.channel.send(embed=response)
 
 
-if __name__ == "__main__":
-    print("Would execute in main")
-    for name in ["discord"]:
-        logger = logging.getLogger(name)
-        # logger.handlers.clear()
-        # logger.propagate = False
-        logger.setLevel(logging.INFO)
-
-    logging.basicConfig(encoding="utf-8", level=logging.DEBUG)
-    logger.info("Starting bot...")
-    client.run(TOKEN)
+logging.basicConfig(encoding="utf-8", level=logging.DEBUG)
+for name in ["discord"]:
+    logger = logging.getLogger(name)
+    # logger.handlers.clear()
+    # logger.propagate = False
+    logger.setLevel(logging.INFO)
+logger.info("Starting bot...")
+client.run(TOKEN)
