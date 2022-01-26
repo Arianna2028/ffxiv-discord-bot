@@ -68,7 +68,7 @@ for name in ["discord"]:
     third_party_logger = logging.getLogger(name)
     # logger.handlers.clear()
     # logger.propagate = False
-    third_party_logger.setLevel(logging.INFO)
+    third_party_logger.setLevel(logging.WARNING)
 
 logger.info("Starting bot...")
 client.run(TOKEN)

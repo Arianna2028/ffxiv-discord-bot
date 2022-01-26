@@ -21,7 +21,9 @@ class XIVAPIService:
     def get(self, path: str, params: Optional[dict] = None) -> requests.Response:
         updated_params = deepcopy(params) if params else {}
         updated_params["private_key"] = self._api_key
-        return requests.get(f"{self.BASE_URL}/{path}", params=updated_params)
+        full_path = f"{self.BASE_URL}/{path}"
+        logger.info(f"GET {full_path}")
+        return requests.get(full_path, params=updated_params)
 
     @cached(cache=LRUCache(maxsize=100))
     def character_id_from_name(self, name: str, worlds: List[str] = None) -> Optional[str]:
@@ -42,11 +44,8 @@ class XIVAPIService:
         try:
             return next(c for c in characters if c.world in worlds)
         except StopIteration:
-            print(f"No character in the right datacenter/server for {name}")
-            import pdb
-
-            pdb.set_trace()
-            return
+            logger.error(f"No character {name} found on worlds {worlds}")
+            return None
 
     @cached(cache=TTLCache(maxsize=100, ttl=timedelta(hours=1), timer=datetime.now))
     def character_from_id(self, lodestone_id: int) -> Character:
