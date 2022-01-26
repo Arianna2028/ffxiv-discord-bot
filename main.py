@@ -55,8 +55,7 @@ async def on_message(message):
             roulette_type = RouletteType(message_parts[1])
         except Exception as e:
             logger.info(f"Failed to parse RouletteType {message_parts[1]}: {e}")
-            roulettes_msg = "\n".join(list(RouletteType))
-            valid_roulettes_msg = f"Valid roulettes:\n{roulettes_msg}"
+            valid_roulettes_msg = f"\nValid roulettes are {', '.join(list(RouletteType))}"
             await message.channel.send(
                 f"Invalid roulette type: {message_parts[1]}\n{valid_roulettes_msg}"
             )
