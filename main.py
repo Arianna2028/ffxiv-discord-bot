@@ -9,14 +9,22 @@ from bot.roulette import random_by_role, roulette_by_type
 from bot.services.xivapi import XIVAPIService
 from bot.util.discord import parse_character_name
 
+START_SYMBOL = "$"  # Symbol commands must start with to be recognized
+
+# Set up logging
+logger = logging.getLogger(__name__)
+logging.basicConfig(encoding="utf-8", level=logging.INFO)
+
+for name in ["discord"]:
+    third_party_logger = logging.getLogger(name)
+    third_party_logger.setLevel(logging.WARNING)
+
+# Client startup environment
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
+api_service = XIVAPIService(os.getenv("XIVAPI_KEY"))
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
-START_SYMBOL = "$"  # Symbol commands must start with to be recognized
-api_service = XIVAPIService(os.getenv("XIVAPI_KEY"))
-
-logger = logging.getLogger(__name__)
 
 
 @client.event
@@ -61,14 +69,6 @@ async def on_message(message):
             response.add_field(name=selection.character.name, value=f"{emoji} {selection.job.name}")
         await message.channel.send(embed=response)
 
-
-logging.basicConfig(encoding="utf-8", level=logging.INFO)
-
-for name in ["discord"]:
-    third_party_logger = logging.getLogger(name)
-    # logger.handlers.clear()
-    # logger.propagate = False
-    third_party_logger.setLevel(logging.WARNING)
 
 logger.info("Starting bot...")
 client.run(TOKEN)
