@@ -62,11 +62,13 @@ async def on_message(message):
         await message.channel.send(embed=response)
 
 
-logging.basicConfig(encoding="utf-8", level=logging.DEBUG)
+logging.basicConfig(encoding="utf-8", level=logging.INFO)
+
 for name in ["discord"]:
-    logger = logging.getLogger(name)
+    third_party_logger = logging.getLogger(name)
     # logger.handlers.clear()
     # logger.propagate = False
-    logger.setLevel(logging.INFO)
+    third_party_logger.setLevel(logging.INFO)
+
 logger.info("Starting bot...")
 client.run(TOKEN)
