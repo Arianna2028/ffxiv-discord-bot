@@ -21,6 +21,7 @@ class Roulette(BaseModel):
         keep_untouched = (cached_property,)
 
     name: RouletteType
+    aliases: List[str] = []
     num_tanks: int
     num_healers: int
     num_dps: int

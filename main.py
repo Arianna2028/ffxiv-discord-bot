@@ -5,7 +5,7 @@ import discord
 from dotenv import load_dotenv
 
 from bot.models.roulette import RouletteType
-from bot.roulette import random_by_role, roulette_by_type
+from bot.roulette import random_by_role, roulette_by_name
 from bot.services.xivapi import XIVAPIService
 from bot.util.discord import parse_character_name
 
@@ -51,18 +51,11 @@ async def on_message(message):
         character_ids = [api_service.character_id_from_name(c) for c in character_names]
         characters = [api_service.character_from_id(c.lodestone_id) for c in character_ids]
 
-        try:
-            roulette_type = RouletteType(message_parts[1])
-        except Exception as e:
-            logger.info(f"Failed to parse RouletteType {message_parts[1]}: {e}")
+        if not (roulette := roulette_by_name(message_parts[1])):
             valid_roulettes_msg = f"\nValid roulettes are {', '.join(list(RouletteType))}"
             await message.channel.send(
-                f"Invalid roulette type: {message_parts[1]}\n{valid_roulettes_msg}"
+                f"No roulette found with name {message_parts[1]}\n{valid_roulettes_msg}"
             )
-            return
-
-        if not (roulette := roulette_by_type(roulette_type)):
-            await message.channel.send(f"No roulette found with name {roulette_type}")
             return
 
         selections = random_by_role(roulette=roulette, characters=characters)
