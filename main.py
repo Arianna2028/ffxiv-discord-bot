@@ -63,6 +63,11 @@ async def on_message(message):
         for selection in selections:
             emoji = discord.utils.get(message.guild.emojis, name=selection.job.short_name)
             response.add_field(name=selection.character.name, value=f"{emoji} {selection.job.name}")
+
+        # Ensure columns stay aligned; inline fields wrap after 3
+        if len(selections) % 3 != 0:
+            response.add_field(name="\u200b", value="\u200b")
+
         await message.channel.send(embed=response)
 
 
