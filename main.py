@@ -59,7 +59,7 @@ async def on_message(message):
             return
 
         # Allow min-level overriding for manual situations like limited leveling
-        if len(message_parts) >= 2:
+        if len(message_parts) >= 3:
             roulette = roulette.copy(update={"min_job_level": int(message_parts[2])})
 
         selections = random_by_role(roulette=roulette, characters=characters)
