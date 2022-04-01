@@ -22,6 +22,7 @@ class Roulette(BaseModel):
 
     name: RouletteType
     aliases: List[str] = []
+    label: str
     num_tanks: int
     num_healers: int
     num_dps: int

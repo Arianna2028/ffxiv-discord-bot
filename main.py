@@ -5,7 +5,7 @@ import discord
 from dotenv import load_dotenv
 
 from bot.models.roulette import RouletteType
-from bot.roulette import random_by_role, roulette_by_name
+from bot.roulette import random_by_role, roulette_by_name, shuffled_roulettes
 from bot.services.xivapi import XIVAPIService
 from bot.util.discord import parse_character_name
 
@@ -47,6 +47,19 @@ async def on_message(message):
         message_parts = message.content.split(" ")
         channel = message.author.voice.channel
         users = channel.members
+
+        if len(message_parts) == 1:
+            roulettes = shuffled_roulettes()
+            print(roulettes)
+            response = "__**Roulettes**__\n"
+            i = 1
+            for roulette in roulettes:
+                response += f"{i}. {roulette.label}\n"
+                i += 1
+
+            await message.channel.send(response)
+            return
+
         character_names = [parse_character_name(u.nick) for u in users]
         character_ids = [api_service.character_id_from_name(c) for c in character_names]
         characters = [api_service.character_from_id(c.lodestone_id) for c in character_ids]

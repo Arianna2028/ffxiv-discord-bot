@@ -8,6 +8,7 @@ from bot.models.xivapi import Character
 ALL_ROULETTES = [
     Roulette(
         name=RouletteType.EXPERT,
+        label="Expert",
         num_tanks=1,
         num_healers=1,
         num_dps=2,
@@ -16,6 +17,7 @@ ALL_ROULETTES = [
     ),
     Roulette(
         name=RouletteType.NORMAL_RAID,
+        label="Normal Raids",
         num_tanks=2,
         num_healers=2,
         num_dps=4,
@@ -24,6 +26,7 @@ ALL_ROULETTES = [
     ),
     Roulette(
         name=RouletteType.TRIAL,
+        label="Trials",
         num_tanks=2,
         num_healers=2,
         num_dps=4,
@@ -32,6 +35,7 @@ ALL_ROULETTES = [
     ),
     Roulette(
         name=RouletteType.ALLIANCE_RAID,
+        label="Alliance Raids",
         num_tanks=1,
         num_healers=2,
         num_dps=5,
@@ -40,13 +44,21 @@ ALL_ROULETTES = [
     ),
     Roulette(
         name=RouletteType.ZEROS,
+        label="50/60/70/80s",
         num_tanks=1,
         num_healers=1,
         num_dps=2,
         min_job_level=50,
         aliases=["zero"],
     ),
-    Roulette(name=RouletteType.LEVELING, num_tanks=1, num_healers=1, num_dps=2, min_job_level=16),
+    Roulette(
+        name=RouletteType.LEVELING,
+        label="Leveling",
+        num_tanks=1,
+        num_healers=1,
+        num_dps=2,
+        min_job_level=16,
+    ),
 ]
 
 
@@ -80,3 +92,7 @@ def random_by_role(roulette: Roulette, characters: List[Character]) -> List[Roul
             unselected_characters = [char] + unselected_characters
 
     return selections
+
+
+def shuffled_roulettes() -> List[Roulette]:
+    return random.sample(ALL_ROULETTES, len(ALL_ROULETTES))
