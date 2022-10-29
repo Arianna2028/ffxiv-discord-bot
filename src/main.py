@@ -40,6 +40,8 @@ async def on_message(message):
     if not message.content.startswith(START_SYMBOL):
         return
 
+    logger.info(f"Received message {message}")
+
     if message.content.startswith(f"{START_SYMBOL}ping"):
         await message.channel.send("pong")
 

@@ -1,0 +1,6 @@
+# fly.toml file generated for ffxiv-discord-bot on 2022-10-28T16:46:22-04:00
+
+app = "ffxiv-discord-bot"
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
